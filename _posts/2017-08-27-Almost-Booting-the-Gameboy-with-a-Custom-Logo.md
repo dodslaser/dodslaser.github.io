@@ -2,7 +2,7 @@
 title:  "(Almost) Booting the Gameboy with a Custom Logo"
 date:   2017-08-27
 ---
-In 2003 neviksti managed to extract the original Gameboy boot ROM by literally putting the CPU under a microscope. The ROM on the chip was soon decoded, revealing the bootstrap program responsible for reading and parsing the header of the game cartridge. The program is pretty simple; it reads the header stored on the cartridge, validates it, scrolls the Nintendo logo and plays the di-ding sound. If the header is valid it then starts the program at the entry point. Interestingly, a side-effect of this process allows anyone with a hex editor and too much time on their hands to change the appearance of the Nintendo logo.
+In 2003 neviksti managed to extract the original Gameboy boot ROM by [putting the CPU under a microscope](http://www.neviksti.com/DMG/). The ROM on the chip was soon decoded, revealing the [bootstrap program](http://gbdev.gg8.se/wiki/articles/Gameboy_Bootstrap_ROM) responsible for reading and parsing the header of the game cartridge. The program is pretty simple; it reads the header stored on the cartridge, validates it, scrolls the Nintendo logo and plays the di-ding sound. If the header is valid it then starts the program at the entry point. Interestingly, a side-effect of this process allows anyone with a hex editor and too much time on their hands to change the appearance of the Nintendo logo.
 
 ## The Header
 
@@ -17,11 +17,18 @@ This is the header from a game cartridge, starting at offset 0100:
 ```
 
 - 0100-0103 is the entry point for the program stored on the cartridge. This is almost always `00 C3 50 01`, which translates to a `NOP` followed by a `JP 0150h` (Where the address is stored as LL HH, `50 01`).
+
 - 0104-0133 contains a "secret" validation code.
+
 - 0134-014C contains information about the cartridge and the program on it (for instance the title is located at offset 0134-0143).
+
 - 014D contains an 8-bit checksum of the header bytes at 0134-014C. This checksum is validated by the bootloader.
+
 - 014E-014F is a 16-bit checksum of the entire ROM. This checksum is not validated by the bootloader.
-- The main program the starts at offset 0150.
+
+  The main program the starts at offset 0150.
+
+More information about the header can be found [here](http://gbdev.gg8.se/wiki/articles/The_Cartridge_Header)
 
 ## The Validation Code
 
@@ -33,7 +40,7 @@ Let's look at the validation code at 0104-0133:
 0124 : BB BB 67 63 6E 0E EC CC DD DC 99 9F BB B9 33 3E
 ```
 
-This code is the same for all Gameboy games and has to be present or the bootloader will hang. Something interesting will happen before it hangs though. The bootloader will run all the way to the di-ding even if everything is invalid, so we can create a ROM filled with all bytes set to `00`  and it will still do *something*. We need at least 336 (014F) bytes or the ROM won't boot at all, since part of the header would be missing.
+This code is the same for all Gameboy games and has to be present or the bootloader will hang. However, the bootloader will run all the way to the di-ding even if everything is invalid, so we can create a ROM filled with all bytes set to `00`  and it will still do *something*. We need at least 336 (014F) bytes or the ROM won't boot at all, since part of the header would be missing.
 
 Here's our rom:
 
@@ -73,7 +80,7 @@ The logo isn't just affected by the validation code; it *is* the logo (surprise!
 
 # Decoding the Logo
 
-The logo is 48x8 pixels and monochrome. Each "pixel" is actually a block of four dots on the matrix. The copyright logo is drawn separately and cannot be altered. The area inside the red markings below is our canvas.
+The logo is 48x8 pixels and monochrome. Each "pixel" is actually a block of four dots on the matrix. The copyright logo is drawn separately and cannot be altered. The area inside the red markings is our canvas.
 
 ![DMG-Logo]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-Logo.png)
 
@@ -143,11 +150,11 @@ It works!
 
 # Encoding a Logo
 
-Now that we can decode a logo, encoding our own logo should just be a matter doing the same process in reverse. This is the logo I want to encode into a ROM:
+Now that we can decode a logo, encoding our own logo should just be a matter doing the same process in reverse. This is the logo I want to encode:
 
 ![DMG-mylogo]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-mylogo.png)
 
-We can reuse most the code from the decoding program. All we need to do is to reverse the sorting. This can be achieved by sorting based on the index of each nibble in the mapping. I eneded up with this code:
+We can reuse most the code from our decoding program. All we need to do is to reverse the sorting. This can be achieved by sorting based on the index of each nibble in the mapping. I eneded up with this code:
 
 ```python
 from itertools import chain
@@ -184,7 +191,7 @@ Once again, this could definitely be shorter. You could probably do it in a sing
 
 ![DMG-dodslaser]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-dodslaser.gif)
 
-Now BGB will complain that pretty much everything is broken in this ROM, and that it will not play on a real gameboy. Most importantly, it will say that the logo verification will fail. While this is true, the logo would still be scrolled if this rom was played on real hardware. This works because the logo is actually read twice by the bootloader. Once to be scrolled, and once again to be validated. Some pirate gamecarts abuse this by replacing the logo in the header after it is read the first time, making a custom logo scroll while still passing validation. I won't get into that right now because I don't have the hardware (or skills) to do it (hence the "almost").
+BGB will complain that pretty much everything is broken in this ROM, and that it will not play on a real gameboy. Most importantly, it will say that the logo verification will fail. While this is true, the logo will still be scrolled on real hardware. This works because the logo is actually read twice by the bootloader. Once to be scrolled, and once again to be validated. Some pirate gamecarts abuse this fact by replacing the logo in the header after it is read the first time, making a custom logo scroll while the header still passes validation. I won't get into that right now because I don't have the hardware (or skills) to do it (hence the "almost").
 
 For now I'm happy with my custom logo being scrolled on a Gameboy.
 
