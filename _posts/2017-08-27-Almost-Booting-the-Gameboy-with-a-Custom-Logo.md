@@ -17,16 +17,11 @@ This is the header from a game cartridge, starting at offset 0100:
 ```
 
 - 0100-0103 is the entry point for the program stored on the cartridge. This is almost always `00 C3 50 01`, which translates to a `NOP` followed by a `JP 0150h` (Where the address is stored as LL HH, `50 01`).
-
 - 0104-0133 contains a "secret" validation code.
-
 - 0134-014C contains information about the cartridge and the program on it (for instance the title is located at offset 0134-0143).
-
 - 014D contains an 8-bit checksum of the header bytes at 0134-014C. This checksum is validated by the bootloader.
-
 - 014E-014F is a 16-bit checksum of the entire ROM. This checksum is not validated by the bootloader.
-
-  The main program the starts at offset 0150.
+- The main program the starts at offset 0150.
 
 More information about the header can be found [here](http://gbdev.gg8.se/wiki/articles/The_Cartridge_Header)
 
@@ -76,7 +71,7 @@ And here it is in BGB:
 
 ![DMG-all-FF]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-all-FF.gif)
 
-The logo isn't just affected by the validation code; it *is* the logo (surprise!). Now we just need to figure out how to decode it.	
+The validation code ins't just affecting the logo, it *is* the logo (surprise!). Now we just need to figure out how to decode it.	
 
 # Decoding the Logo
 
