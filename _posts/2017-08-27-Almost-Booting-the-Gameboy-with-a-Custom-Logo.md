@@ -3,7 +3,7 @@ title:  "(Almost) Booting the Gameboy with a Custom Logo"
 date:   2017-08-27
 comments: true
 ---
-In 2003 neviksti managed to extract the original Gameboy boot ROM by [literally putting the CPU under a microscope](http://www.neviksti.com/DMG/). The ROM on the chip was soon decoded, revealing the [bootstrap program](http://gbdev.gg8.se/wiki/articles/Gameboy_Bootstrap_ROM) responsible for reading and parsing the header of the game cartridge. The program is pretty simple; it reads the header stored on the cartridge, validates it, scrolls the Nintendo logo and plays the di-ding sound. If the header is valid it then starts the program at the entry point. Interestingly, a side-effect of this process allows anyone with a hex editor and too much time on their hands to change the appearance of the Nintendo logo.
+In 2003 neviksti managed to extract the original Gameboy boot ROM by [literally putting the CPU under a microscope](http://www.neviksti.com/DMG/). The ROM on the chip was soon decoded, revealing the [bootstrap program](http://gbdev.gg8.se/wiki/articles/Gameboy_Bootstrap_ROM) responsible for reading and parsing the header of the game cartridge. The program is pretty simple; it reads the header stored on the cartridge, validates it, scrolls the Nintendo logo and plays the di-ding sound. If the header is valid it then starts the program at the entry point. A side-effect of this process allows anyone with a hex editor and too much time on their hands to change the appearance of the Nintendo logo.
 
 ## The Header
 
@@ -20,7 +20,7 @@ This is the header from a game cartridge, starting at offset 0100:
 - 0100-0103 is the entry point for the program stored on the cartridge. This is almost always `00 C3 50 01`, which translates to a `NOP` followed by a `JP 0150h` (Where the address is stored as LL HH, `50 01`).
 - 0104-0133 contains a "secret" validation code.
 - 0134-014C contains information about the cartridge and the program on it (for instance the title is located at offset 0134-0143).
-- 014D contains an 8-bit checksum of the header bytes at 0134-014C. This checksum is validated by the bootloader.
+- 014D contains an 8-bit checksum of the header bytes at 0134-014C. The bootloader validates this checksum.
 - 014E-014F is a 16-bit checksum of the entire ROM. This checksum is not validated by the bootloader.
 - The main program the starts at offset 0150.
 
@@ -41,8 +41,8 @@ This code is the same for all Gameboy games and has to be present or the bootloa
 Here's our rom:
 
 ```
-0000 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-...  : ... 
+0000 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+...  : ...
 0100 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 0110 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 0120 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -59,8 +59,8 @@ Where did the logo go? It has to be affected by the validation code, right? What
 Here's our new ROM:
 
 ```
-0000 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-...  : ... 
+0000 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+...  : ...
 0100 : 00 00 00 00 FF FF FF FF FF FF FF FF FF FF FF FF
 0110 : FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF
 0120 : FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF
@@ -72,7 +72,7 @@ And here it is in BGB:
 
 ![DMG-all-FF]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-all-FF.gif)
 
-The validation code ins't just affecting the logo, it *is* the logo (surprise!). Now we just need to figure out how to decode it.	
+The validation code isn't just affecting the logo, it *is* the logo (surprise!). Now we need to figure out how to decode it.
 
 # Decoding the Logo
 
@@ -138,7 +138,7 @@ logo_out = bytes(
 Image.frombytes('1', (48, 8), logo_out).save('logo.bmp')
 ```
 
-This could definitely be shorter, but I took some extra steps to make it readable. Here's the output:
+This could be shorter, but I took some extra steps to make it readable. Here's the output:
 
 ![DMG-Logo-Decoded]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-Logo-Decoded.png)
 
