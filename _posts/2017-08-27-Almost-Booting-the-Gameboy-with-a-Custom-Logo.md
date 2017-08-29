@@ -187,7 +187,7 @@ Once again, this could definitely be shorter. You could probably do it in a sing
 
 ![DMG-dodslaser]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-dodslaser.gif)
 
-BGB will complain that pretty much everything is broken in this ROM, and that it will not play on a real gameboy. Most importantly, it will say that the logo verification will fail. While this is true, the logo will still be scrolled on real hardware. This works because the logo is actually read twice by the bootloader. Once to be scrolled, and once again to be validated. Some pirate gamecarts abuse this fact by replacing the logo in the header after it is read the first time, making a custom logo scroll while the header still passes validation. I won't get into that right now because I don't have the hardware (or skills) to do it (hence the "almost").
+BGB will complain that pretty much everything is broken in this ROM, and say that it would not play on a Gameboy. While this is true, the logo will still be scrolled, even on real hardware. This works because the logo is actually read twice by the bootloader. Once to be scrolled, and once again to be validated. [Some pirate gamecarts abuse this fact](http://fuji.drillspirits.net/?post=87) by replacing the logo in the header after it is read the first time, making a custom logo scroll while the header still passes validation. I won't get into that right now because I don't have the hardware (or skills) to do it (hence the "almost").
 
 For now I'm happy with my custom logo being scrolled on a Gameboy.
 
