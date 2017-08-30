@@ -52,7 +52,7 @@ Here's our rom:
 
 And here is what it looks like in BGB:
 
-![DMG-all-00]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-all-00.gif)
+![DMG-all-00]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-all-00.gif)
 
 Where did the logo go? It has to be affected by the validation code, right? What happens if we change the code to all `FF`?
 
@@ -70,7 +70,7 @@ Here's our new ROM:
 
 And here it is in BGB:
 
-![DMG-all-FF]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-all-FF.gif)
+![DMG-all-FF]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-all-FF.gif)
 
 The validation code isn't just affecting the logo, it *is* the logo (surprise!). Now we need to figure out how to decode it.
 
@@ -78,19 +78,19 @@ The validation code isn't just affecting the logo, it *is* the logo (surprise!).
 
 The logo is 48x8 pixels and monochrome. Each "pixel" is actually a block of four dots on the matrix. The copyright logo is drawn separately and cannot be altered. The area inside the red markings is our canvas.
 
-![DMG-Logo]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-Logo.png)
+![DMG-Logo]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-Logo.png)
 
 Our code 48 bytes long giving us, you guessed it, 48x8 bits in total. Each bit should correspond to a pixel. Let's assume pixels are added left to right, top to bottom. Think of our 48-byte code as a 48x8 bit matrix. By setting the most significant bit to 1 the top right pixel should come on.
 
-![DMG-firstbit]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-firstbit.png)
+![DMG-firstbit]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-firstbit.png)
 
 Fantastic! Our assumption keeps working until we flip the fifth bit. Then this happens:
 
-![DMG-fifthbit]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-fifthbit.png)
+![DMG-fifthbit]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-fifthbit.png)
 
 Each nibble corresponds to a row of 4 pixels added top to bottom. But when we reach the third byte this happens.
 
-![DMG-17thbit]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-17thbit.png)
+![DMG-17thbit]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-17thbit.png)
 
 The first nibble of the third byte is added to the right of the first block. This pattern repeats for the entire top half of the logo. The lower half is then added in the same way. The nibbles are mapped to the logo in the following way:
 
@@ -140,7 +140,7 @@ Image.frombytes('1', (48, 8), logo_out).save('logo.bmp')
 
 This could be shorter, but I took some extra steps to make it readable. Here's the output:
 
-![DMG-Logo-Decoded]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-Logo-Decoded.png)
+![DMG-Logo-Decoded]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-Logo-Decoded.png)
 
 It works!
 
@@ -148,7 +148,7 @@ It works!
 
 Now that we can decode a logo, encoding our own logo should just be a matter doing the same process in reverse. This is the logo I want to encode:
 
-![DMG-mylogo]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-mylogo.png)
+![DMG-mylogo]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-mylogo.png)
 
 We can reuse most the code from our decoding program. All we need to do is to reverse the sorting. This can be achieved by sorting based on the index of each nibble in the mapping. I eneded up with this code:
 
@@ -185,10 +185,10 @@ with open('mylogo.gb', 'wb') as f:
 
 Once again, this could definitely be shorter. You could probably do it in a single list comprehension if readability wasn't an issue. Anyway, here's the result in BGB:
 
-![DMG-dodslaser]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-dodslaser.gif)
+![DMG-dodslaser]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-dodslaser.gif)
 
 BGB will complain that pretty much everything is broken in this ROM, and say that it would not play on a Gameboy. While this is true, the logo will still be scrolled, even on real hardware. This works because the logo is actually read twice by the bootloader. Once to be scrolled, and once again to be validated. [Some pirate gamecarts abuse this fact](http://fuji.drillspirits.net/?post=87) by replacing the logo in the header after it is read the first time, making a custom logo scroll while the header still passes validation. [This post on dhole's blog](https://dhole.github.io/post/gameboy_custom_logo/) shows how to do it with a homebrew cart emulator. I won't get into that right now because I don't have the hardware (or skills) to do it (hence the "almost").
 
 For now I'm happy with my custom logo being scrolled on a Gameboy.
 
-![DMG-hw]({{ site.url }}\assets\images\posts\2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo\DMG-hw.gif)
+![DMG-hw]({{ site.url }}/assets/images/posts/2017-08-27-Almost-Booting-the-Gameboy-with-a-Custom-Logo/DMG-hw.gif)
