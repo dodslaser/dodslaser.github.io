@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/dodslaser
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://dodslaser.github.io
+  * I am dodslaser (https://keybase.io/dodslaser) on keybase.
+  * I have a public key ASC13xWmKaVfwXMJiYYu5TW36cQFZqAJDx9Hsn5J8fSPKAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120b5df15a629a55fc1730989862ee535b7e9c40566a0090f1f47b27e49f1f48f280a",
+      "host": "keybase.io",
+      "kid": "0120b5df15a629a55fc1730989862ee535b7e9c40566a0090f1f47b27e49f1f48f280a",
+      "uid": "452c528db19eaf073a8c3d93ea193619",
+      "username": "dodslaser"
+    },
+    "merkle_root": {
+      "ctime": 1507700088,
+      "hash": "72932ac7dec377cffb62c136fddc9b7b89001f067a7454d035bddad45a29720baf554bdc27c2ca7157dd9c7ffaa6508cccb6730f8c9b021fd764d1a029f11558",
+      "hash_meta": "2ac169e91285202fecde84164f8c405a61e1fe1b34193e04a33e97183b610316",
+      "seqno": 1556796
+    },
+    "service": {
+      "hostname": "dodslaser.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.33"
+  },
+  "ctime": 1507700110,
+  "expire_in": 504576000,
+  "prev": "3eb855f6962b462ec90374ce08e760af0293a1ec0ed143f42e715ae51f23553d",
+  "seqno": 10,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgtd8VpimlX8FzCYmGLuU1t+nEBWagCQ8fR7J+SfH0jygKp3BheWxvYWTFA017ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwYjVkZjE1YTYyOWE1NWZjMTczMDk4OTg2MmVlNTM1YjdlOWM0MDU2NmEwMDkwZjFmNDdiMjdlNDlmMWY0OGYyODBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwYjVkZjE1YTYyOWE1NWZjMTczMDk4OTg2MmVlNTM1YjdlOWM0MDU2NmEwMDkwZjFmNDdiMjdlNDlmMWY0OGYyODBhIiwidWlkIjoiNDUyYzUyOGRiMTllYWYwNzNhOGMzZDkzZWExOTM2MTkiLCJ1c2VybmFtZSI6ImRvZHNsYXNlciJ9LCJtZXJrbGVfcm9vdCI6eyJjdGltZSI6MTUwNzcwMDA4OCwiaGFzaCI6IjcyOTMyYWM3ZGVjMzc3Y2ZmYjYyYzEzNmZkZGM5YjdiODkwMDFmMDY3YTc0NTRkMDM1YmRkYWQ0NWEyOTcyMGJhZjU1NGJkYzI3YzJjYTcxNTdkZDljN2ZmYWE2NTA4Y2NjYjY3MzBmOGM5YjAyMWZkNzY0ZDFhMDI5ZjExNTU4IiwiaGFzaF9tZXRhIjoiMmFjMTY5ZTkxMjg1MjAyZmVjZGU4NDE2NGY4YzQwNWE2MWUxZmUxYjM0MTkzZTA0YTMzZTk3MTgzYjYxMDMxNiIsInNlcW5vIjoxNTU2Nzk2fSwic2VydmljZSI6eyJob3N0bmFtZSI6ImRvZHNsYXNlci5naXRodWIuaW8iLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC4zMyJ9LCJjdGltZSI6MTUwNzcwMDExMCwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsInByZXYiOiIzZWI4NTVmNjk2MmI0NjJlYzkwMzc0Y2UwOGU3NjBhZjAyOTNhMWVjMGVkMTQzZjQyZTcxNWFlNTFmMjM1NTNkIiwic2Vxbm8iOjEwLCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQC0MTukgZ/5v8/kbEwZ8r5Kvyk66D0z2prf4vFmu8c17buwME8geG6l2YDJjSS7d4UXwvODm55XMFe1HFUB29wOoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCCTKdSKOfPS2wzu2d+msTqv6xcNGZGYjO5BPkNxDMd5pKN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/dodslaser
+
+==================================================================
