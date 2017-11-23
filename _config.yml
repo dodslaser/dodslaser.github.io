@@ -11,7 +11,7 @@ title                    : "dodslaser"
 title_separator          : "-"
 name                     :
 description              :
-url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : https://blog.dodslaser.se
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : dodslaser/dodslaser.github.io
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
