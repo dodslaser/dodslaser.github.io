@@ -27,7 +27,7 @@ If it compiles out of the box without throwing errors you can skip directly to t
 
 First of all the compiler complains that `min` and `max` are not members of `std`. This means `algorithm` isn't included in a few places where it is needed. To fix this add `#include <algorithm>` to the includes in the offending files. In my case this was `/src/engine/meshlevelset.h`, `/src/engine/opencl_bindings/clcpp.h` and `/src/engine/c_bindings/openclutils.h`.
 
-The second issue had to do with OpenCL. For some reason, the OpenCL library location is explicitly set to the DLL `C:/Windows/System32/OpenCL.dll` rather than the default OpenCL .lib file (In my case `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\lib\x64\OpenCL.lib`). This causes the linker to throw a bunch of `LNK1107` errors. It can be easily fixed by removing the section in `CMakeLists.txt`.
+The second issue had to do with OpenCL. For some reason, the OpenCL library location is explicitly set to the DLL `C:/Windows/System32/OpenCL.dll` rather than the default `OpenCL.lib` file. This causes the linker to throw a bunch of `LNK1107` errors. It can be easily fixed by removing the section in `CMakeLists.txt`.
 
 **Change this:**
 
