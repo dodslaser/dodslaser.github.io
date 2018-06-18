@@ -35,7 +35,7 @@ The second issue had to do with OpenCL. For some reason, the OpenCL library loca
 if(WITH_OPENCL)
     if(MSVC OR MINGW)
         Set to OpenCL ICD loader instead of vendor library
-        set(OpenCL_LIBRARY "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v9.2/lib/x64/OpenCL.lib")
+        set(OpenCL_LIBRARY "C:/Windows/System32/OpenCL.dll")
     endif()
 
     # Allows use os clCreateCommandQueue in OpenCL versions >= 2.0
