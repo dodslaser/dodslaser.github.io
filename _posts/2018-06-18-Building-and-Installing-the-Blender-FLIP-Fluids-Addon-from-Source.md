@@ -75,3 +75,19 @@ To install the addon, simply copy `bl_flip_fluids/flip_fluids_addon` to the Blen
 To start playing with FLIP-Fluids in Blender, simply enable the addon in user preferences. Make sure it can detect your GPU compute device.
 
 ![UserPrefs]({{ site.url }}/assets/images/posts/2018-06-18-Building-and-Installing-the-Blender-FLIP-Fluids-Addon-from-Source/UserPrefs.png)
+
+**Edit:** A few people on reddit pointed out that the add-on throws a nasty python exception as it loads. This is because of a faulty reference in one of the python files, which is really easy to fix. Go into the add-on folder we just copied and edit `pyfluid/pyfluid.py`
+
+Change this:
+```python
+if system == "Windows":
+    libname = "libblpyfluid.dll"
+```
+
+To this:
+```python
+if system == "Windows":
+    libname = "blpyfluid.dll"
+```
+
+Then restart Blender and it will load fine.
